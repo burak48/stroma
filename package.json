@@ -1,0 +1,20 @@
+{
+  "name": "stroma",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"backend/**/*.js\" --ignore-pattern node_modules/ && eslint \"frontend/**/*.js\" --ignore-pattern node_modules/"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8"
+  },
+  "author": "Burak Saglam",
+  "license": "ISC"
+}
