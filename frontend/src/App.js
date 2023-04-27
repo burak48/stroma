@@ -1,3 +1,4 @@
+import React from 'react' // eslint-disable-line
 import Login from './components/Login'
 
 function App() {
