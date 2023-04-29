@@ -2,14 +2,25 @@
 /** @jsx jsx */
 import {css, jsx} from '@emotion/react' // eslint-disable-line
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('SUBMIT')
+        const response = await fetch('http://localhost:3001/login', {
+            method: 'POST',
+            body: JSON.stringify({email, password}),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        if (response.ok) {
+            navigate('/home')
+        }
     }
 
     return (
