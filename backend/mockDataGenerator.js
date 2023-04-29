@@ -7,6 +7,7 @@ const generateBlogs = (count) => {
   for (let i = 0; i < count; i++) {
     const blog = {
       id: faker.datatype.uuid(),
+      image: faker.image.city(320, 180),
       title: faker.lorem.words(),
       content: faker.lorem.paragraphs(),
       date: faker.date.recent(),
