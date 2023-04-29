@@ -1,6 +1,6 @@
 {
     "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
-    "plugins": ["react", "react-hooks", "@emotion"],
+    "plugins": ["react", "react-hooks", "@emotion/eslint-plugin"],
     "rules": {
         "react/prop-types": "off", // disable prop-types validation
         "react/jsx-uses-react": "off", // disable "React must be in scope" error
