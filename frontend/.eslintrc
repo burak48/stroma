@@ -1,10 +1,12 @@
 {
     "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
-    "plugins": ["react", "react-hooks"],
+    "plugins": ["react", "react-hooks", "@emotion"],
     "rules": {
         "react/prop-types": "off", // disable prop-types validation
         "react/jsx-uses-react": "off", // disable "React must be in scope" error
-        "react/react-in-jsx-scope": "off" // disable "React must be in scope" error
+        "react/react-in-jsx-scope": "off", // disable "React must be in scope" error
+        "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+        "@emotion/jsx-import": "error"
     },
     "parserOptions": {
         "ecmaVersion": 2021,
@@ -16,7 +18,8 @@
     "env": {
         "es6": true,
         "browser": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "settings": {
         "react": {
