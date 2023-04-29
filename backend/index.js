@@ -2,6 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import fs from 'fs';
+const mockData = JSON.parse(fs.readFileSync('./mockData.json', 'utf-8'));
+
 const app = express();
 const port = 3001;
 
@@ -21,6 +24,12 @@ app.post('/login', (req, res) => {
   } else {
     return res.status(400).json({ message: 'Invalid email or password' });
   }
+});
+
+app.get('/blogs', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(mockData);
 });
 
 app.get('/', (req, res) => {
