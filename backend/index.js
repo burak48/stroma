@@ -5,6 +5,8 @@ import cors from 'cors';
 import fs from 'fs';
 const mockData = JSON.parse(fs.readFileSync('./mockData.json', 'utf-8'));
 
+import { faker } from '@faker-js/faker';
+
 const app = express();
 const port = 3001;
 
@@ -30,6 +32,24 @@ app.get('/blogs', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(mockData);
+});
+
+app.post('/blog', (req, res) => {
+  let newBlog = req.body;
+
+  newBlog = {
+    ...newBlog,
+    id: faker.datatype.uuid(),
+    date: faker.date.recent(),
+    image: faker.image.city(320, 180),
+  };
+
+  const blogs = mockData;
+  mockData.push(newBlog);
+
+  fs.writeFileSync('./mockData.json', JSON.stringify(blogs, null, 2));
+
+  res.status(200).json({ message: 'Blog added successfully' });
 });
 
 app.get('/', (req, res) => {
