@@ -23,7 +23,7 @@ function BlogList() {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [blogs])
 
     function handleAddButtonClick() {
         setIsModalOpen(true)
@@ -40,9 +40,15 @@ function BlogList() {
     }
 
     function handleNewBlogSave() {
-        // TODO: Call API to add new blog
-        // TODO: Refresh blog list to display new blog
-        handleModalClose()
+        axios
+            .post('http://localhost:3001/blog', newBlog)
+            .then((response) => {
+                console.log('response: ', response)
+                handleModalClose()
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     return (
@@ -57,8 +63,8 @@ function BlogList() {
                     </div>
                 </div>
                 <div className="blog-wrapper">
-                    {blogs.map((blog) => (
-                        <div key={blog.id} className="blog-box">
+                    {blogs.map((blog, index) => (
+                        <div key={index} className="blog-box">
                             <img
                                 src={blog.image}
                                 alt="image"
@@ -79,122 +85,45 @@ function BlogList() {
                 <Modal
                     isOpen={isModalOpen}
                     onRequestClose={handleModalClose}
-                    style={customModalStyles}
+                    style={customModalStyle}
                 >
                     <h2>Add New Blog</h2>
                     <div>
-                        <form style={{display: 'flex', flexDirection: 'column'}}>
-                            <label
-                                style={{
-                                    display: 'block',
-                                    marginBottom: '0.5rem',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    color: '#333',
-                                }}
-                            >
+                        <form style={customModalFormStyle}>
+                            <label style={customModalLabelStyle}>
                                 Title:
                                 <input
                                     type="text"
                                     name="title"
                                     value={newBlog.title}
                                     onChange={handleNewBlogChange}
-                                    style={{
-                                        width: '100%',
-                                        display: 'block',
-                                        padding: '10px 0px 10px 5px',
-                                        fontSize: '1rem',
-                                        border: 'none',
-                                        borderRadius: '0.25rem',
-                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-                                        marginBottom: '1rem',
-                                    }}
+                                    style={customModalInputStyle}
                                 />
                             </label>
-                            <label
-                                style={{
-                                    display: 'block',
-                                    marginBottom: '0.5rem',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    color: '#333',
-                                }}
-                            >
+                            <label style={customModalLabelStyle}>
                                 Author:
                                 <input
                                     type="text"
                                     name="author"
                                     value={newBlog.author}
                                     onChange={handleNewBlogChange}
-                                    style={{
-                                        width: '100%',
-                                        display: 'block',
-                                        padding: '10px 0px 10px 5px',
-                                        fontSize: '1rem',
-                                        border: 'none',
-                                        borderRadius: '0.25rem',
-                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-                                        marginBottom: '1rem',
-                                    }}
+                                    style={customModalInputStyle}
                                 />
                             </label>
-                            <label
-                                style={{
-                                    display: 'block',
-                                    marginBottom: '0.5rem',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    color: '#333',
-                                }}
-                            >
+                            <label style={customModalLabelStyle}>
                                 Content:
                                 <textarea
                                     name="content"
                                     value={newBlog.content}
                                     onChange={handleNewBlogChange}
-                                    style={{
-                                        width: '100%',
-                                        display: 'block',
-                                        padding: '10px 0px 10px 5px',
-                                        fontSize: '1rem',
-                                        border: 'none',
-                                        borderRadius: '0.25rem',
-                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-                                        marginBottom: '1rem',
-                                    }}
+                                    style={customModalInputStyle}
                                 />
                             </label>
                         </form>
-                        <button
-                            onClick={handleNewBlogSave}
-                            style={{
-                                width: 'fit-content',
-                                backgroundColor: '#333',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '0.25rem',
-                                padding: '10px',
-                                fontSize: '1rem',
-                                cursor: 'pointer',
-                                marginRight: '10px',
-                            }}
-                        >
+                        <button onClick={handleNewBlogSave} style={customModalButtonStyle}>
                             Save
                         </button>
-                        <button
-                            onClick={handleModalClose}
-                            style={{
-                                width: 'fit-content',
-                                backgroundColor: '#333',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '0.25rem',
-                                padding: '10px',
-                                fontSize: '1rem',
-                                cursor: 'pointer',
-                                marginRight: '10px',
-                            }}
-                        >
+                        <button onClick={handleModalClose} style={customModalButtonStyle}>
                             Cancel
                         </button>
                     </div>
@@ -253,6 +182,7 @@ const customStyles = css`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        padding: 10px;
     }
     .blog-button-add-wrapper {
         display: flex;
@@ -267,12 +197,48 @@ const customStyles = css`
     }
 `
 
-const customModalStyles = {
+const customModalStyle = {
     content: {
-        width: '25%',
+        width: 'auto',
         margin: '0 auto',
         height: 'fit-content',
     },
+}
+
+const customModalFormStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+}
+
+const customModalInputStyle = {
+    width: '100%',
+    display: 'block',
+    padding: '10px 0px 10px 5px',
+    fontSize: '1rem',
+    border: 'none',
+    borderRadius: '0.25rem',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+    marginBottom: '1rem',
+}
+
+const customModalLabelStyle = {
+    display: 'block',
+    marginBottom: '0.5rem',
+    fontSize: '1rem',
+    fontWeight: '600',
+    color: '#333',
+}
+
+const customModalButtonStyle = {
+    width: 'fit-content',
+    backgroundColor: '#333',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '0.25rem',
+    padding: '10px',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    marginRight: '10px',
 }
 
 export default BlogList
