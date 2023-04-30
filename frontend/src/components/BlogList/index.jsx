@@ -4,10 +4,15 @@ import axios from 'axios'
 /** @jsx jsx */
 import {css, jsx} from '@emotion/react' // eslint-disable-line
 import {useNavigate} from 'react-router-dom'
+import Modal from 'react-modal'
+
+Modal.setAppElement('#root')
 
 function BlogList() {
     const [blogs, setBlogs] = useState([])
     const navigate = useNavigate()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [newBlog, setNewBlog] = useState({title: '', author: '', content: ''})
 
     useEffect(() => {
         axios
@@ -20,10 +25,37 @@ function BlogList() {
             })
     }, [])
 
+    function handleAddButtonClick() {
+        setIsModalOpen(true)
+    }
+
+    function handleModalClose() {
+        setIsModalOpen(false)
+        setNewBlog({title: '', author: '', content: ''})
+    }
+
+    function handleNewBlogChange(event) {
+        const {name, value} = event.target
+        setNewBlog((prevNewBlog) => ({...prevNewBlog, [name]: value}))
+    }
+
+    function handleNewBlogSave() {
+        // TODO: Call API to add new blog
+        // TODO: Refresh blog list to display new blog
+        handleModalClose()
+    }
+
     return (
         <div css={customStyles}>
             <section className="blog-container">
-                <h2>BlogList</h2>
+                <div className="blog-header-wrapper">
+                    <h2>BlogList</h2>
+                    <div className="blog-button-add-wrapper">
+                        <button className="blog-read-more" onClick={handleAddButtonClick}>
+                            Add
+                        </button>
+                    </div>
+                </div>
                 <div className="blog-wrapper">
                     {blogs.map((blog) => (
                         <div key={blog.id} className="blog-box">
@@ -44,6 +76,129 @@ function BlogList() {
                         </div>
                     ))}
                 </div>
+                <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleModalClose}
+                    style={customModalStyles}
+                >
+                    <h2>Add New Blog</h2>
+                    <div>
+                        <form style={{display: 'flex', flexDirection: 'column'}}>
+                            <label
+                                style={{
+                                    display: 'block',
+                                    marginBottom: '0.5rem',
+                                    fontSize: '1rem',
+                                    fontWeight: '600',
+                                    color: '#333',
+                                }}
+                            >
+                                Title:
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={newBlog.title}
+                                    onChange={handleNewBlogChange}
+                                    style={{
+                                        width: '100%',
+                                        display: 'block',
+                                        padding: '10px 0px 10px 5px',
+                                        fontSize: '1rem',
+                                        border: 'none',
+                                        borderRadius: '0.25rem',
+                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+                                        marginBottom: '1rem',
+                                    }}
+                                />
+                            </label>
+                            <label
+                                style={{
+                                    display: 'block',
+                                    marginBottom: '0.5rem',
+                                    fontSize: '1rem',
+                                    fontWeight: '600',
+                                    color: '#333',
+                                }}
+                            >
+                                Author:
+                                <input
+                                    type="text"
+                                    name="author"
+                                    value={newBlog.author}
+                                    onChange={handleNewBlogChange}
+                                    style={{
+                                        width: '100%',
+                                        display: 'block',
+                                        padding: '10px 0px 10px 5px',
+                                        fontSize: '1rem',
+                                        border: 'none',
+                                        borderRadius: '0.25rem',
+                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+                                        marginBottom: '1rem',
+                                    }}
+                                />
+                            </label>
+                            <label
+                                style={{
+                                    display: 'block',
+                                    marginBottom: '0.5rem',
+                                    fontSize: '1rem',
+                                    fontWeight: '600',
+                                    color: '#333',
+                                }}
+                            >
+                                Content:
+                                <textarea
+                                    name="content"
+                                    value={newBlog.content}
+                                    onChange={handleNewBlogChange}
+                                    style={{
+                                        width: '100%',
+                                        display: 'block',
+                                        padding: '10px 0px 10px 5px',
+                                        fontSize: '1rem',
+                                        border: 'none',
+                                        borderRadius: '0.25rem',
+                                        boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+                                        marginBottom: '1rem',
+                                    }}
+                                />
+                            </label>
+                        </form>
+                        <button
+                            onClick={handleNewBlogSave}
+                            style={{
+                                width: 'fit-content',
+                                backgroundColor: '#333',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '0.25rem',
+                                padding: '10px',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                marginRight: '10px',
+                            }}
+                        >
+                            Save
+                        </button>
+                        <button
+                            onClick={handleModalClose}
+                            style={{
+                                width: 'fit-content',
+                                backgroundColor: '#333',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '0.25rem',
+                                padding: '10px',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                marginRight: '10px',
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </Modal>
             </section>
         </div>
     )
@@ -51,14 +206,28 @@ function BlogList() {
 
 const customStyles = css`
     .blog-container {
-        width: 1440px;
+        width: auto;
         margin: 0 auto;
     }
+
+    @media screen and (min-width: 1024px) {
+        .blog-container {
+            width: 1440px;
+        }
+    }
+
     .blog-wrapper {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
     }
+
+    @media screen and (min-width: 1024px) {
+        .blog-wrapper {
+            flex-direction: row;
+        }
+    }
+
     .blog-box {
         flex-basis: 30%;
         padding: 10px;
@@ -80,6 +249,30 @@ const customStyles = css`
         border-radius: 4px;
         padding: 10px;
     }
+    .blog-header-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .blog-button-add-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+    }
 `
+
+const customModalStyles = {
+    content: {
+        width: '25%',
+        margin: '0 auto',
+        height: 'fit-content',
+    },
+}
 
 export default BlogList
