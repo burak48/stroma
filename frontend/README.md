@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Frontend for Blog Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of a simple web application that allows users to create, read, update, and delete blog posts. The application is built using React.js and uses the React Router library for navigation. It also includes a form for creating and editing blog posts, as well as a breadcrumb component for easy navigation. The app has been tested using Jest and includes a GitHub Action for continuous integration.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+To run the application locally, you'll need to have Node.js installed. Once you have Node.js installed, follow these steps:
 
-### `npm start`
+1. Clone this repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Run the command npm install to install all required dependencies.
+4. Run the command npm start to start the application.
+5. Open your web browser and navigate to http://localhost:3000 to view the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Dependencies
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This application uses the following dependencies:
 
-### `npm test`
+-   react: a JavaScript library for building user interfaces.
+-   react-dom: a package that provides DOM-specific methods that can be used at the top level of a web application to enable interaction with a web page.
+-   axios: a Promise based HTTP client for the browser and node.js.
+-   emotion css: a CSS-in-JS library for React that provides a more intuitive way of styling your components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Components
 
-### `npm run build`
+The frontend of this application is composed of the following components:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   App: The main component that renders the entire application. This component contains the state of the application and manages the API calls to the backend.
+-   BlogDetail: This component displays the details of a single blog post. Users can edit or delete the post from here.
+-   BlogList: This component displays a list of all blog posts available in the database.
+-   Breadcrumb: This component shows a breadcrumb navigation trail for users to easily navigate to different pages within the application.
+-   Home: This component is the landing page of the application. It displays all blogs.
+-   Login: This component provides a login form for users to access the application's features. Users must be authenticated in order to create, edit or delete blog posts.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Styling
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application uses Emotion for styling its components. Emotion is a popular CSS-in-JS library that provides powerful and flexible tools for styling React components.
 
-### `npm run eject`
+Emotion allows us to write our styles in JavaScript code, which gives us more flexibility and control over our styles
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you'd like to contribute to this project, please fork the repository and create a pull request with your changes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## License
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the LICENSE file for details.
