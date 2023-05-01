@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react'
-import axios from 'axios'
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import {css, jsx} from '@emotion/react' // eslint-disable-line
+import {useState, useEffect} from 'react'
+import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import Modal from 'react-modal'
 
@@ -23,7 +23,7 @@ function BlogList() {
             .catch((err) => {
                 console.log(err)
             })
-    }, [blogs])
+    }, [])
 
     function handleAddButtonClick() {
         setIsModalOpen(true)
@@ -55,7 +55,7 @@ function BlogList() {
         <div css={customStyles}>
             <section className="blog-container">
                 <div className="blog-header-wrapper">
-                    <h2>BlogList</h2>
+                    <h2>Stroma</h2>
                     <div className="blog-button-add-wrapper">
                         <button className="blog-read-more" onClick={handleAddButtonClick}>
                             Add
@@ -75,7 +75,7 @@ function BlogList() {
                             <p className="blog-content">{blog.content}</p>
                             <button
                                 className="blog-read-more"
-                                onClick={() => navigate(`/blogs/${blog.id}`)}
+                                onClick={() => navigate(`/blog/${blog.id}`)}
                             >
                                 Read More
                             </button>

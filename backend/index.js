@@ -52,6 +52,68 @@ app.post('/blog', (req, res) => {
   res.status(200).json({ message: 'Blog added successfully' });
 });
 
+function getBlogById(blogId) {
+  return mockData.find((blog) => blog.id === blogId);
+}
+
+app.get('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const blog = getBlogById(blogId);
+
+  if (!blog) {
+    return res.status(404).json({ error: 'Blog not found' });
+  }
+
+  res.json(blog);
+});
+
+app.put('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const newBlogData = req.body;
+
+  // read data from blogs.json file
+  const blogs = mockData;
+
+  // find the index of the blog with the given id
+  const index = blogs.findIndex((blog) => blog.id === blogId);
+
+  if (index === -1) {
+    // if blog is not found, return 404 error
+    res.status(404).send('Blog not found');
+  } else {
+    // update the blog data
+    blogs[index] = {
+      ...blogs[index],
+      ...newBlogData,
+    };
+
+    // write updated data back to blogs.json file
+    fs.writeFileSync('./mockData.json', JSON.stringify(blogs, null, 2));
+
+    // return the updated blog data
+    res.send(blogs);
+  }
+});
+
+app.delete('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const blogData = mockData;
+
+  const blogIndex = blogData.findIndex((blog) => blog.id === blogId);
+  // If the blog is not found, return a 404 error
+  if (blogIndex === -1) {
+    return res.status(404).send('Blog not found');
+  }
+
+  // Remove the blog from the array
+  blogData.splice(blogIndex, 1);
+
+  // Write the updated blogs data to the JSON file
+  fs.writeFileSync('./mockData.json', JSON.stringify(blogData, null, 2));
+
+  return res.status(200).send('Blog deleted successfully');
+});
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
