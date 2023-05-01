@@ -67,6 +67,34 @@ app.get('/blog/:id', (req, res) => {
   res.json(blog);
 });
 
+app.put('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const newBlogData = req.body;
+
+  // read data from blogs.json file
+  const blogs = mockData;
+
+  // find the index of the blog with the given id
+  const index = blogs.findIndex((blog) => blog.id === blogId);
+
+  if (index === -1) {
+    // if blog is not found, return 404 error
+    res.status(404).send('Blog not found');
+  } else {
+    // update the blog data
+    blogs[index] = {
+      ...blogs[index],
+      ...newBlogData,
+    };
+
+    // write updated data back to blogs.json file
+    fs.writeFileSync('./mockData.json', JSON.stringify(blogs, null, 2));
+
+    // return the updated blog data
+    res.send(blogs);
+  }
+});
+
 app.delete('/blog/:id', (req, res) => {
   const blogId = req.params.id;
   const blogData = mockData;
