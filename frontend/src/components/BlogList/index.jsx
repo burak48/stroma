@@ -16,7 +16,7 @@ function BlogList() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3001/blogs')
+            .get(`${process.env.REACT_APP_API_URL}/blogs`)
             .then((res) => {
                 setBlogs(res.data)
             })
