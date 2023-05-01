@@ -15,7 +15,7 @@ function BlogDetail() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3001/blog/${id}`)
+            .get(`${process.env.REACT_APP_API_URL}/blog/${id}`)
             .then((res) => {
                 setBlog(res.data)
             })
@@ -41,7 +41,7 @@ function BlogDetail() {
 
     const handleSaveBlog = () => {
         axios
-            .put(`http://localhost:3001/blog/${id}`, {...blog})
+            .put(`${process.env.REACT_APP_API_URL}/blog/${id}`, {...blog})
             .then((response) => {
                 console.log('response: ', response)
                 setShowEditModal(false)
@@ -63,7 +63,7 @@ function BlogDetail() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3001/blog/${blog.id}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/blog/${blog.id}`)
             navigate('/home')
         } catch (error) {
             console.error(error)

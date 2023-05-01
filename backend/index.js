@@ -8,7 +8,7 @@ const mockData = JSON.parse(fs.readFileSync('./mockData.json', 'utf-8'));
 import { faker } from '@faker-js/faker';
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Add middleware for parsing request bodies
 app.use(bodyParser.json());
