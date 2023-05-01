@@ -52,6 +52,21 @@ app.post('/blog', (req, res) => {
   res.status(200).json({ message: 'Blog added successfully' });
 });
 
+function getBlogById(blogId) {
+  return mockData.find((blog) => blog.id === blogId);
+}
+
+app.get('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const blog = getBlogById(blogId);
+
+  if (!blog) {
+    return res.status(404).json({ error: 'Blog not found' });
+  }
+
+  res.json(blog);
+});
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
