@@ -58,7 +58,6 @@ function BlogDetail() {
 
     function handleCloseBlog() {
         setShowEditModal(false)
-        setBlog({title: '', author: '', content: ''})
     }
 
     const handleDelete = async () => {
