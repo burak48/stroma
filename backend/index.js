@@ -49,7 +49,7 @@ app.post('/blog', (req, res) => {
 
   fs.writeFileSync('./mockData.json', JSON.stringify(blogs, null, 2));
 
-  res.status(200).json({ message: 'Blog added successfully' });
+  res.status(200).json({ message: 'Blog added successfully', id: newBlog.id });
 });
 
 function getBlogById(blogId) {
