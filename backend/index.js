@@ -67,6 +67,25 @@ app.get('/blog/:id', (req, res) => {
   res.json(blog);
 });
 
+app.delete('/blog/:id', (req, res) => {
+  const blogId = req.params.id;
+  const blogData = mockData;
+
+  const blogIndex = blogData.findIndex((blog) => blog.id === blogId);
+  // If the blog is not found, return a 404 error
+  if (blogIndex === -1) {
+    return res.status(404).send('Blog not found');
+  }
+
+  // Remove the blog from the array
+  blogData.splice(blogIndex, 1);
+
+  // Write the updated blogs data to the JSON file
+  fs.writeFileSync('./mockData.json', JSON.stringify(blogData, null, 2));
+
+  return res.status(200).send('Blog deleted successfully');
+});
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });

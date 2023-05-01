@@ -1,13 +1,17 @@
 import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import {css, jsx} from '@emotion/react' // eslint-disable-line
 import axios from 'axios'
+import Modal from 'react-modal'
 
 function BlogDetail() {
     const {id} = useParams() // get the ID from the URL
     const [blog, setBlog] = useState(null)
+    const navigate = useNavigate()
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [editedBlog, setEditedBlog] = useState(blog)
 
     useEffect(() => {
         axios
@@ -20,6 +24,42 @@ function BlogDetail() {
             })
     }, [id])
 
+    const handleEditModalOpen = () => {
+        setShowEditModal(true)
+    }
+
+    const handleEditModalClose = () => {
+        setShowEditModal(false)
+    }
+
+    const handleEditBlog = (event) => {
+        setEditedBlog({
+            ...editedBlog,
+            [event.target.name]: event.target.value,
+        })
+    }
+
+    const handleSaveBlog = () => {
+        handleEditModalClose()
+
+        // Navigate to the updated blog's detail page
+        navigate(`/blog/${blog.id}`)
+    }
+
+    function handleCloseBlog() {
+        setShowEditModal(false)
+        setEditedBlog({title: '', author: '', content: ''})
+    }
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:3001/blog/${blog.id}`)
+            navigate('/home')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     if (!blog) {
         return <div>Loading...</div>
     }
@@ -28,10 +68,10 @@ function BlogDetail() {
         <div css={customStyles}>
             <section className="blog-detail">
                 <div className="blog-button-wrapper">
-                    <button className="blog-detail-edit" onClick={() => {}}>
+                    <button className="blog-detail-edit" onClick={handleEditModalOpen}>
                         Edit
                     </button>
-                    <button className="blog-detail-edit blog-delete" onClick={() => {}}>
+                    <button className="blog-detail-edit blog-delete" onClick={handleDelete}>
                         Delete
                     </button>
                 </div>
@@ -43,6 +83,17 @@ function BlogDetail() {
                 </div>
                 <p>{blog.content}</p>
             </section>
+            <Modal isOpen={showEditModal} onRequestClose={handleEditModalClose}>
+                <h2>Edit Blog</h2>
+                <label>Title:</label>
+                <input type="text" name="title" value={blog.title} onChange={handleEditBlog} />
+                <label>Author:</label>
+                <input type="text" name="author" value={blog.author} onChange={handleEditBlog} />
+                <label>Content:</label>
+                <textarea name="content" value={blog.content} onChange={handleEditBlog} />
+                <button onClick={handleSaveBlog}>Save</button>
+                <button onClick={handleCloseBlog}>Cancel</button>
+            </Modal>
         </div>
     )
 }
