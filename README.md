@@ -2,6 +2,19 @@
 
 This is a web application for writing and sharing blog posts. It consists of a frontend built with React and a backend built with Node.js and Express.
 
+
+## Demo
+
+For the backend demo, try [heroku](https://stroma-backend.herokuapp.com)
+<br />
+For the frontend demo, try [vercel](https://stroma-awa5.vercel.app)
+
+### Login Info:
+
+<b>email</b>: test@test.com
+<br />
+<b>password</b>: 123
+
 ## Table of Contents
 
 - [Features](#features)
