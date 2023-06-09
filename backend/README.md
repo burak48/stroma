@@ -9,7 +9,9 @@ This is the backend of a blog web application. The backend is built with Node.js
 3. Install the dependencies with npm install
 4. Start the server with npm run dev or npm start
 
-The server should now be running on http://localhost:3001. You can test the API by visiting http://localhost:3001/blogs in your web browser.
+The server should now be running on http://localhost:3001.
+<br />
+You can test the API by visiting http://localhost:3001/blogs in your web browser.
 
 ## API Endpoints
 
