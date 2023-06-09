@@ -4,14 +4,14 @@ This is a web application for writing and sharing blog posts. It consists of a f
 
 ## Table of Contents
 
-[Features](#features)
-[Technologies](#technologies)
-[Getting Started](#getting-started)
-[Configuration](#)
-[Running the Application](#running-the-application)
-[Testing](#testing)
-[Contributing](#contributing)
-[License](#license)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
@@ -41,7 +41,7 @@ The backend is built using:
 
 To get started, clone the repository to your local machine:
 
-git clone https://github.com/yourusername/blog-app.git
+git clone https://github.com/burak48/stroma
 
 ## Configuration
 
