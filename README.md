@@ -47,7 +47,7 @@ git clone https://github.com/burak48/stroma
 
 To configure the application, create a .env file in the root directory of the project and set the following environment variables:
 
-REACT_APP_API_URL=http://localhost:3001/api
+REACT_APP_API_URL=http://localhost:3001
 
 ## Running the Application
 
